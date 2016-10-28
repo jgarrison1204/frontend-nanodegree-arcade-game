@@ -1,3 +1,8 @@
+const CANVAS_WIDTH = 505;
+const CANVAS_HEIGHT = 606;
+const SPACER = 200;
+var verticalMovements = [400, 371, 243, 151, 68];
+
 // Enemies our player must avoid
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
@@ -16,18 +21,14 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     allEnemies.forEach(function(enemy, index){
-    //     if (index % 2 == 0 && enemy.x < 500){
-    //         enemy.x += 2;
-    //     } else if (enemy.x >= 500){
-    //         enemy.x = 0;
-    //     } else{
-    //         enemy.x += 3;
-    //     } 
+        if (index % 2 == 0 && enemy.x < 500){
+            enemy.x += 200 * dt;
+        } else if (enemy.x >= 500){
+            enemy.x = 0;
+        } else{
+            enemy.x += 300 * dt;
+        } 
     });
-
-        //     this.x += 200 * dt;
-        // if (this.x > 500) {
-        //     this.x = 0;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -54,16 +55,14 @@ Player.prototype.render = function(){
 };
 
 Player.prototype.handleInput = function(key){
-    console.log(key);
-    console.log(typeof key);
-    if (isNaN(key) && key == "left") {
-        this.x += -100;
-    } else if (isNaN(key) && key == "right") {
+    if (key == "right" && this.x < CANVAS_WIDTH - SPACER) {
         this.x += 100;
-    }else if (isNaN(key) && key == "up") {
-        this.y += -100;
-    }else if (isNaN(key) && key == "down") {
-        this.y += 100;
+    }else if (key == "left" && this.x > 0) {
+        this.x += -100;
+    }else if (key == "up" && this.y > 67) {
+        this.y += -83;
+    }else if (key == "down" && this.y < 400) {
+        this.y += 83;
     };
 };
 
