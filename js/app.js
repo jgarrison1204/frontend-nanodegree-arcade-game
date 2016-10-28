@@ -15,11 +15,13 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x++ * dt;
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    console.log(this.x, this.y);
 };
 
 // Now write your own player class
@@ -48,7 +50,11 @@ var bug = new Enemy();
 bug.x = 50;
 bug.y = 50;
 
-var allEnemies = [bug];
+var bug1 = new Enemy();
+bug1.x = 200;
+bug1.y = 200;
+
+var allEnemies = [bug, bug1];
 var player = new Player();
 
 
