@@ -15,10 +15,19 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x += 200 * dt;
-    if (this.x > 500) {
-        this.x = 0;
-    };
+    allEnemies.forEach(function(enemy, index){
+    //     if (index % 2 == 0 && enemy.x < 500){
+    //         enemy.x += 2;
+    //     } else if (enemy.x >= 500){
+    //         enemy.x = 0;
+    //     } else{
+    //         enemy.x += 3;
+    //     } 
+    });
+
+        //     this.x += 200 * dt;
+        // if (this.x > 500) {
+        //     this.x = 0;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -44,16 +53,27 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function(){
-
+Player.prototype.handleInput = function(key){
+    console.log(key);
+    console.log(typeof key);
+    if (isNaN(key) && key == "left") {
+        this.x += -100;
+    } else if (isNaN(key) && key == "right") {
+        this.x += 100;
+    }else if (isNaN(key) && key == "up") {
+        this.y += -100;
+    }else if (isNaN(key) && key == "down") {
+        this.y += 100;
+    };
 };
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var bug = new Enemy(50, 50);
+var bug1 = new Enemy(25, 225);
 
-var allEnemies = [bug];
+var allEnemies = [bug, bug1];
 var player = new Player(200, 400);
 player;
 
