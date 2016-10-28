@@ -1,7 +1,6 @@
 const CANVAS_WIDTH = 505;
 const CANVAS_HEIGHT = 606;
 const SPACER = 200;
-var verticalMovements = [400, 371, 243, 151, 68];
 
 // Enemies our player must avoid
 var Enemy = function(x,y) {
@@ -27,7 +26,7 @@ Enemy.prototype.update = function(dt) {
             enemy.x = 0;
         } else{
             enemy.x += 300 * dt;
-        } 
+        }
     });
 };
 
@@ -59,11 +58,18 @@ Player.prototype.handleInput = function(key){
         this.x += 100;
     }else if (key == "left" && this.x > 0) {
         this.x += -100;
-    }else if (key == "up" && this.y > 67) {
-        this.y += -83;
+    }else if (key == "up" && this.y > 71 && this.y > 0) {
+        this.y += -82;
     }else if (key == "down" && this.y < 400) {
-        this.y += 83;
+        this.y += 82;
+    }else if (this.y <= 71) { 
+       this.reset();
     };
+};
+
+Player.prototype.reset = function(){
+    this.x = startingX;
+    this.y = startingY;
 };
 
 // Now instantiate your objects.
@@ -73,9 +79,9 @@ var bug = new Enemy(50, 50);
 var bug1 = new Enemy(25, 225);
 
 var allEnemies = [bug, bug1];
-var player = new Player(200, 400);
-player;
-
+var startingX = 200;
+var startingY = 400;
+var player = new Player(startingX, startingY);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
