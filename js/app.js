@@ -1,11 +1,8 @@
-const CANVAS_WIDTH = 505;
-const CANVAS_HEIGHT = 606;
-const SPACER = 200;
-
 // Enemies our player must avoid
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
+    var rect1 = {x: 82, y: 100, width: 50, height: 50}
     this.x = x;
     this.y = y;
     // The image/sprite for our enemies, this uses
@@ -21,13 +18,19 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     allEnemies.forEach(function(enemy, index){
         if (index % 2 == 0 && enemy.x < 500){
-            enemy.x += 200 * dt;
+            enemy.x += 1;
         } else if (enemy.x >= 500){
             enemy.x = 0;
         } else{
-            enemy.x += 300 * dt;
+            enemy.x += 3;
         }
     });
+    console.log(player.y);
+    console.log(this.y);
+    if ((player.x == this.x) || (player.y == this.y)){
+        console.log("it works");
+        player.reset();
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -45,6 +48,10 @@ var Player = function(x, y){
     this.sprite = 'images/char-boy.png';
 };
 
+// Enemy.call(this, x , y)
+// Player.prototype = Object.create(Enemy.prototype);
+// Player.prototype.constructor = Player();
+
 Player.prototype.update = function(){
 
 };
@@ -54,7 +61,7 @@ Player.prototype.render = function(){
 };
 
 Player.prototype.handleInput = function(key){
-    if (key == "right" && this.x < CANVAS_WIDTH - SPACER) {
+    if (key == "right" && this.x < 400) {
         this.x += 100;
     }else if (key == "left" && this.x > 0) {
         this.x += -100;
@@ -75,10 +82,10 @@ Player.prototype.reset = function(){
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var bug = new Enemy(50, 50);
-var bug1 = new Enemy(25, 225);
+var bug = new Enemy(0, 50);
+var bug1 = new Enemy(0, 225);
 
-var allEnemies = [bug, bug1];
+var allEnemies = [bug1];
 var startingX = 200;
 var startingY = 400;
 var player = new Player(startingX, startingY);
