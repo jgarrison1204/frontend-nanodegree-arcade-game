@@ -1,10 +1,13 @@
 // Enemies our player must avoid
+const WIDTH = 505;
+
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    var rect1 = {x: 82, y: 100, width: 50, height: 50}
     this.x = x;
     this.y = y;
+    var speeds = [50, 75, 100, 200, 300];
+    this.speed = speeds[(Math.floor(Math.random() * speeds.length))];
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -16,19 +19,15 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    allEnemies.forEach(function(enemy, index){
-        if (index % 2 == 0 && enemy.x < 500){
-            enemy.x += 1;
-        } else if (enemy.x >= 500){
-            enemy.x = 0;
-        } else{
-            enemy.x += 3;
-        }
-    });
-    console.log(player.y);
-    console.log(this.y);
+    this.x += this.speed * dt;
+
+    if (this.x >= WIDTH) {
+    	var newStartLocation = Math.floor(Math.random() * 275);
+    	this.y = newStartLocation;
+    	this.x = 0;
+    };
+
     if ((player.x == this.x) || (player.y == this.y)){
-        console.log("it works");
         player.reset();
     }
 };
@@ -85,7 +84,7 @@ Player.prototype.reset = function(){
 var bug = new Enemy(0, 50);
 var bug1 = new Enemy(0, 225);
 
-var allEnemies = [bug1];
+var allEnemies = [bug1, bug];
 var startingX = 200;
 var startingY = 400;
 var player = new Player(startingX, startingY);
