@@ -6,11 +6,18 @@ var Enemy = function(x,y) {
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
+    this.width = 100; 
+    this.height = 82;
+
     var speeds = [50, 75, 100, 200, 300];
+    
+    //Selects randmon index from speeds array
     this.speed = speeds[(Math.floor(Math.random() * speeds.length))];
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    console.log("The width is " + this.width);
+    console.log("The height is " + this.height);
 };
 
 // Update the enemy's position, required method for game
@@ -19,17 +26,19 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    // sets the speed of the enemy from the speed property in the instance of enemy. 
     this.x += this.speed * dt;
 
+    // restarts enemy position randomly on y-axis after enemy has traveled off canvas.
     if (this.x >= WIDTH) {
     	var newStartLocation = Math.floor(Math.random() * 275);
     	this.y = newStartLocation;
     	this.x = 0;
     };
 
-    if ((player.x == this.x) || (player.y == this.y)){
-        player.reset();
-    }
+    // if ((player.x == this.x) || (player.y == this.y)){
+    //     player.reset();
+    // }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -60,6 +69,7 @@ Player.prototype.render = function(){
 };
 
 Player.prototype.handleInput = function(key){
+	console.log(this.x);
     if (key == "right" && this.x < 400) {
         this.x += 100;
     }else if (key == "left" && this.x > 0) {
@@ -83,8 +93,9 @@ Player.prototype.reset = function(){
 // Place the player object in a variable called player
 var bug = new Enemy(0, 50);
 var bug1 = new Enemy(0, 225);
+var bug2 = new Enemy(0, 125);
 
-var allEnemies = [bug1, bug];
+var allEnemies = [bug, bug1, bug2];
 var startingX = 200;
 var startingY = 400;
 var player = new Player(startingX, startingY);
