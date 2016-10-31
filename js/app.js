@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-const WIDTH = 505;
+WIDTH = 505;
 // Global array to randomize the speed of enenmies at 
 var speeds = [50, 100, 150, 200, 250, 300];
 
@@ -68,7 +68,7 @@ Player.prototype.collision = function(){
             ){
             player.reset();
         };
-    })
+    });
 };
 
 Player.prototype.render = function(){
@@ -84,8 +84,9 @@ Player.prototype.handleInput = function(key){
         this.y += -82;
     }else if (key == "down" && this.y < 400) {
         this.y += 82;
-    }else if (this.y <= 71) { 
-       this.reset();
+    }else if (this.y <= 71) {
+        window.alert("You won!");
+        this.reset();
     };
 };
 
