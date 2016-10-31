@@ -49,12 +49,26 @@ Enemy.prototype.render = function() {
 var Player = function(x, y){
     this.x = x;
     this.y = y;
+    this.width = 100; 
+    this.height = 82;
 
     this.sprite = 'images/char-boy.png';
 };
 
 Player.prototype.update = function(){
+    this.collision();
+};
 
+Player.prototype.collision = function(){
+    allEnemies.forEach(function(enemy){
+        if (player.x < enemy.x + enemy.width &&
+            player.x + player.width > enemy.x &&
+            player.y < enemy.y + enemy.height &&
+            player.height + player.y > enemy.y
+            ){
+            player.reset();
+        };
+    })
 };
 
 Player.prototype.render = function(){
@@ -62,7 +76,6 @@ Player.prototype.render = function(){
 };
 
 Player.prototype.handleInput = function(key){
-	console.log(this.x);
     if (key == "right" && this.x < 400) {
         this.x += 100;
     }else if (key == "left" && this.x > 0) {
