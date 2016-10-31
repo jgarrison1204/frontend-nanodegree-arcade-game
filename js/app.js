@@ -1,23 +1,23 @@
 // Enemies our player must avoid
 const WIDTH = 505;
+// Global array to randomize the speed of enenmies at 
+var speeds = [50, 100, 150, 200, 250, 300];
 
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
+    //sets the width and height for enemies for 2D collision dection. These values could be refined.
     this.width = 100; 
     this.height = 82;
-
-    var speeds = [50, 75, 100, 200, 300];
-    
+   
     //Selects randmon index from speeds array
     this.speed = speeds[(Math.floor(Math.random() * speeds.length))];
+    
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    console.log("The width is " + this.width);
-    console.log("The height is " + this.height);
 };
 
 // Update the enemy's position, required method for game
@@ -29,16 +29,13 @@ Enemy.prototype.update = function(dt) {
     // sets the speed of the enemy from the speed property in the instance of enemy. 
     this.x += this.speed * dt;
 
-    // restarts enemy position randomly on y-axis after enemy has traveled off canvas.
+    // restarts enemy position and speeds randomly on y-axis after enemy has traveled off canvas.
     if (this.x >= WIDTH) {
-    	var newStartLocation = Math.floor(Math.random() * 275);
-    	this.y = newStartLocation;
-    	this.x = 0;
+        var newStartLocation = Math.floor(Math.random() * 275);
+        this.y = newStartLocation;
+        this.x = 0;
+        this.speed = speeds[(Math.floor(Math.random() * speeds.length))];
     };
-
-    // if ((player.x == this.x) || (player.y == this.y)){
-    //     player.reset();
-    // }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -55,10 +52,6 @@ var Player = function(x, y){
 
     this.sprite = 'images/char-boy.png';
 };
-
-// Enemy.call(this, x , y)
-// Player.prototype = Object.create(Enemy.prototype);
-// Player.prototype.constructor = Player();
 
 Player.prototype.update = function(){
 
