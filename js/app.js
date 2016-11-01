@@ -55,10 +55,12 @@ var Player = function(x, y){
     this.sprite = 'images/char-boy.png';
 };
 
+//call collision funciton on player as engine runs.
 Player.prototype.update = function(){
     this.collision();
 };
 
+//Detects collision between player and enemy 
 Player.prototype.collision = function(){
     allEnemies.forEach(function(enemy){
         if (player.x < enemy.x + enemy.width &&
@@ -117,10 +119,10 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+//counter that increments wins when player reachs the blue squares. 
 var counter = 0
 function winCounter(){
     counter += 1;   
