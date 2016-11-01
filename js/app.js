@@ -85,7 +85,7 @@ Player.prototype.handleInput = function(key){
     }else if (key == "down" && this.y < 400) {
         this.y += 82;
     }else if (this.y <= 71) {
-        window.alert("You won!");
+        winCounter();
         this.reset();
     };
 };
@@ -119,3 +119,9 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+var counter = 0
+function winCounter(){
+    counter += 1;   
+    document.getElementById("win-counter").innerHTML = counter;
+}
