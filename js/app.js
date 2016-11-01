@@ -9,7 +9,7 @@ var Enemy = function(x,y) {
     this.x = x;
     this.y = y;
     //sets the width and height for enemies for 2D collision dection. These values could be refined.
-    this.width = 100; 
+    this.width = 82; 
     this.height = 82;
    
     //Selects randmon index from speeds array
