@@ -84,7 +84,8 @@ Player.prototype.handleInput = function(key){
         this.y += -82;
     }else if (key == "down" && this.y < 400) {
         this.y += 82;
-    }else if (this.y <= 71) {
+    }; 
+    if (this.y <= 71) {
         winCounter();
         this.reset();
     };

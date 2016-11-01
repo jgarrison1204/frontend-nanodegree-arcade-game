@@ -1,3 +1,13 @@
 body {
     text-align: center;
 }
+
+#counter {
+	color: blue;
+	font-size: 24px;
+}
+
+#win-counter{
+	color: black;
+	font-size: 36px;
+}
