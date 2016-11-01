@@ -123,8 +123,8 @@ document.addEventListener('keyup', function(e) {
 });
 
 //counter that increments wins when player reachs the blue squares. 
-var counter = 0
+var counter = 0;
 function winCounter(){
     counter += 1;   
     document.getElementById("win-counter").innerHTML = counter;
-}
+};
