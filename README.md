@@ -1,7 +1,7 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Installation
+#Installation#
 
 `$ git clone https://github.com/jgarrison1204/frontend-nanodegree-arcade-game.git`
 
