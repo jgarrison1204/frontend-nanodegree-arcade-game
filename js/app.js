@@ -3,18 +3,18 @@ WIDTH = 505;
 // Global array to randomize the speed of enenmies at 
 var speeds = [50, 100, 150, 200, 250, 300];
 
-var Enemy = function(x,y) {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
     this.x = x;
     this.y = y;
     //sets the width and height for enemies for 2D collision dection. These values could be refined.
-    this.width = 82; 
+    this.width = 82;
     this.height = 82;
-   
+
     //Selects randmon index from speeds array
     this.speed = speeds[(Math.floor(Math.random() * speeds.length))];
-    
+
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -33,9 +33,9 @@ Enemy.prototype.update = function(dt) {
     if (this.x >= WIDTH) {
         var newStartLocation = Math.floor(Math.random() * 275);
         this.y = newStartLocation;
-        this.x = 0;
+        this.x = -250;
         this.speed = speeds[(Math.floor(Math.random() * speeds.length))];
-    };
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -43,57 +43,56 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//Detects collision between player and enemy 
+Enemy.prototype.collision = function() {
+    if (player.x < this.x + this.width &&
+        player.x + player.width > this.x &&
+        player.y < this.y + this.height &&
+        player.height + player.y > this.y
+    ) {
+        player.reset();
+    }
+};
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x, y){
+var Player = function(x, y) {
     this.x = x;
     this.y = y;
-    this.width = 100; 
+    this.width = 100;
     this.height = 82;
 
     this.sprite = 'images/char-boy.png';
 };
 
 //call collision funciton on player as engine runs.
-Player.prototype.update = function(){
-    this.collision();
+Player.prototype.update = function() {
+
 };
 
-//Detects collision between player and enemy 
-Player.prototype.collision = function(){
-    allEnemies.forEach(function(enemy){
-        if (player.x < enemy.x + enemy.width &&
-            player.x + player.width > enemy.x &&
-            player.y < enemy.y + enemy.height &&
-            player.height + player.y > enemy.y
-            ){
-            player.reset();
-        };
-    });
-};
 
-Player.prototype.render = function(){
+Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-Player.prototype.handleInput = function(key){
-    if (key == "right" && this.x < 400) {
-        this.x += 100;
-    }else if (key == "left" && this.x > 0) {
-        this.x += -100;
-    }else if (key == "up" && this.y > 71 && this.y > 0) {
-        this.y += -82;
-    }else if (key == "down" && this.y < 400) {
-        this.y += 82;
-    }; 
     if (this.y <= 71) {
         winCounter();
         this.reset();
-    };
+    }
 };
 
-Player.prototype.reset = function(){
+Player.prototype.handleInput = function(key) {
+    if (key == "right" && this.x < 400) {
+        this.x += 100;
+    } else if (key == "left" && this.x > 0) {
+        this.x += -100;
+    } else if (key == "up" && this.y > 71 && this.y > 0) {
+        this.y += -82;
+    } else if (key == "down" && this.y < 400) {
+        this.y += 82;
+    }
+};
+
+Player.prototype.reset = function() {
     this.x = startingX;
     this.y = startingY;
 };
@@ -124,7 +123,8 @@ document.addEventListener('keyup', function(e) {
 
 //counter that increments wins when player reachs the blue squares. 
 var counter = 0;
-function winCounter(){
-    counter += 1;   
+
+function winCounter() {
+    counter += 1;
     document.getElementById("win-counter").innerHTML = counter;
-};
+}
